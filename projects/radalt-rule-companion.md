@@ -25,7 +25,7 @@ can check, no assertion the rule does not support, and no silent staleness.
 - [x] Scope statement visible on page, in print, and in copied text
 - [x] Staleness disclosed in the memo, not only on the page
 - [x] Kept out of search indexes
-- [ ] Citation data has one source of truth rather than two hand-synced copies
+- [x] Citation data has one source of truth, with the derived copy verified automatically
 - [ ] Memo rendering covered by something better than a hand-run harness
 
 ## Board
@@ -36,8 +36,6 @@ can check, no assertion the rule does not support, and no silent staleness.
 
 ### Next
 
-- Decide whether to collapse the two copies of the citation data into one
-- Add a sync check comparing the claims file against the copy embedded in the page
 - Consider a lightweight render test for the memo generator
 
 ### Done
@@ -51,7 +49,9 @@ can check, no assertion the rule does not support, and no silent staleness.
 - 2026-09-08 · Search engines excluded via robots meta and robots.txt
 - 2026-09-08 · Citations in copied text numbered and keyed to a sources list
 - 2026-09-08 · Citation rule redefined; all 90 claims audited against it
-- 2026-09-08 · Generator script retired behind a guard
+- 2026-09-08 · Generator script retired behind a guard, then deleted
+- 2026-09-08 · Derived citation copy verified by the checker, with a repair flag
+- 2026-09-08 · End-of-session state updates made a standing rule across projects
 
 ## Decisions
 
@@ -93,23 +93,59 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   session — the verifier independently caught two mis-labeled citations that a
   separate audit had also flagged, from a different source document.
 
+- 2026-09-08 · The claims file is the single source of truth; the copy embedded
+  in the deliverable is a derived artifact, rewritten by tool and verified on
+  every run. Why: extracting at load time was ruled out — the deliverable must
+  open from a local file, where a browser cannot fetch a sibling JSON file. That
+  makes the duplication structural, so it is checked rather than trusted. The
+  checker now fails and names every differing field, and a repair flag rewrites
+  the copy. The repair path cannot launder bad citation data: the source checks
+  run against the rule text regardless.
+
+- 2026-09-08 · A documented manual procedure was rejected as the fix. Why: the
+  drift that motivated this happened while such a procedure was in place. A
+  procedure that depends on remembering is not a control.
+
+- 2026-09-08 · The retired generator was deleted rather than kept behind its
+  guard. Why: a file whose only behaviour is to refuse to run is a trap for a
+  session that skims the guard and assumes it is the build path. What was worth
+  keeping — chiefly how the embedded logo data URI was produced, which nothing
+  else records — is now in the project README. The last version is retained as
+  a dated backup outside the working set.
+
 ## Open questions for Claude
 
-- The claims data now lives in two places: a standalone file the verifier reads,
-  and a copy embedded in the deliverable that the page reads. These drifted once
-  this session and silently reverted a set of page labels. Extract at load time,
-  add a sync check, or accept the duplication with a documented procedure?
 - Is a render test worth building for the memo generator, given verification is
   currently a hand-run harness that stubs the DOM?
-- The retired generator is kept for reference behind a guard. Keep it, or delete
-  it once its useful patterns are recorded?
 
 ## Sessions
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
 
-### 2026-09-08 · Claude Code
+### 2026-09-08 (second session) · Claude Code
+
+Did: Closed the duplicated-citation-data question from the previous session. The
+source-of-truth file and the copy embedded in the deliverable are now compared on
+every checker run; a mismatch fails loudly and names each differing field, and a
+repair flag rewrites the copy from source. Verified by injecting drift, confirming
+the failure, confirming the repair, and confirming the repair cannot push bad
+citation data past the independent source checks. Deleted the retired generator
+after recording the one thing in it that nothing else captured. Made end-of-session
+state updates a standing rule across projects rather than a per-project habit.
+
+Learned: The duplication is structural, not accidental — an offline deliverable
+that must open from a local file cannot fetch its own data, so a copy has to be
+embedded. The question was never how to remove the copy but how to stop trusting
+it. Also worth noting the repair flag deliberately does not suppress the citation
+checks; a sync tool that could silence the verifier would be worse than the drift
+it fixes.
+
+Left off at: Clean. Checker passes 90 claims, 0 failures, including the new
+source-of-truth check. Generator deleted, backup retained. Next open item is
+whether the memo generator deserves a real render test.
+
+### 2026-09-08 (first session) · Claude Code
 
 Did: Reworked the generated memo after a review found it asserting things the
 rule does not support and omitting requirements that apply to the reader. Removed

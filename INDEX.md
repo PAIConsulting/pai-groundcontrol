@@ -6,3 +6,4 @@
 | [Radio Altimeter Rule Companion](projects/radalt-rule-companion.md) | In progress | 2026-09-08 |
 | [Documentation Drift and Repo Guardrails](projects/documentation-drift-and-repo-guardrails.md) | In progress | 2026-09-12 |
 | [Conference Hub](projects/conference-hub.md) | In progress | 2026-09-12 |
+| [AeroNews Newsfeed](projects/pai-aeronews.md) | In progress | 2026-09-22 |

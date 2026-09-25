@@ -93,8 +93,8 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 - What does "frozen" mean for the public pipeline when the designated-frozen file
   has changed six times in ninety days? A written test for when a change may go
   in would settle this better than case-by-case exceptions.
-- The placeholder-headline case was seen once. Is it worth a fix before its
-  frequency is measured?
+- Now that the placeholder-headline case is fixed, how often does it actually
+  occur? Is it worth instrumenting and measuring going forward?
 
 ## Sessions
 

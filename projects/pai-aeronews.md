@@ -1,6 +1,6 @@
 # AeroNews Newsfeed
 
-Status: in progress · Updated: 2026-09-22
+Status: in progress · Updated: 2026-09-25
 
 ## Brief
 
@@ -18,15 +18,15 @@ stream than one card per article.
 
 ### In progress
 
-- Nothing active. Session closed with both open items captured as drafts in the
-  plans system.
+- Restructure of the project's Claude Code instructions into a short always-loaded
+  file plus path-scoped rule files, with roadmap items that existed only in the
+  old file migrated into the roadmap. Open as a pull request, waiting on the
+  owner's review.
 
 ### Next
 
-- Decide whether to fix placeholder headlines now or defer it. The ticker shows a
-  literal placeholder when a feed item arrives without a title. A fix is drafted
-  but not applied, because it touches the public pipeline, which is designated
-  frozen. Waiting on the owner's decision.
+- After the restructure merges, confirm in a fresh session that each rule file
+  loads when its paths are touched, rather than assuming it does.
 - Decide whether the archive's intake step should keep untitled items. It
   currently drops them, so the archive silently loses them.
 - Cross-referencing news items: linking related stories to each other and to the
@@ -34,6 +34,8 @@ stream than one card per article.
 
 ### Done
 
+- 2026-09-23 · Placeholder headlines fixed: a missing headline is now written in
+  the same per-article model call as the takeaway, with no extra call
 - 2026-09-22 · Seven permission allow rules that Claude Code flagged as unsafe
   were resolved: one narrowed to a safe form, six removed
 - 2026-09-22 · Two malformed permission rules removed: one was not a runnable
@@ -71,6 +73,21 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   is easy to lose or commit by accident, and a draft carries a snapshot of related
   work and an explicit "waiting on" state.
 
+- 2026-09-25 · The project's Claude Code instructions are split: universal rules
+  stay in the file every session loads, and area-specific detail moves to rule
+  files that load only when matching paths are touched. Dated measurements and
+  incident history move to a separate decisions document. Why: the single file
+  had grown past twelve hundred lines, most of it relevant only to one area, and
+  all of it was paid for in every session. A restructure is checked line by line
+  for what it drops before it lands; this one would otherwise have lost a merge
+  checklist, the renderer rules, and nineteen roadmap items, and would have
+  confined a security rule to a directory where it would rarely load.
+
+- 2026-09-25 · The rule files are tracked in git, with the rest of the local
+  Claude Code directory still ignored. Why: rules that live only on one machine
+  are invisible to every other clone and to any other session reading the
+  repository, and the always-loaded file now points at them.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -83,6 +100,28 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-09-25 · Claude Code
+
+Did: Reviewed a restructure of the project's Claude Code instructions from one
+large file into a short root file plus seven path-scoped rule files and two
+on-demand documents, and opened it as a pull request. Checked every removed line
+against the new files before anything moved. The owner chose five fixes from
+what that found: two merge-checklist steps and a security rule restored to the
+root file, the card-renderer rules restored to their rule file, a contact rule
+widened to cover skill files, and nineteen roadmap items migrated into the
+roadmap. An old version changelog was left out. While branching, found that a
+change merged after the restructure was drafted had edited the old file; ported
+it so the restructure would not undo it.
+
+Learned: Two things would have gone wrong without a check. First, the new rule
+files were ignored by git twice over — once by the repository's own ignore file
+and once by a machine-wide one — so the pull request would have shipped a short
+root file pointing at rules that existed only locally. Second, a restructure
+drafted against an older copy of a file silently reverts whatever merged since.
+Compare against the current main branch, not the copy the draft was made from.
+
+Left off at: Pull request open with twelve files, waiting on the owner's review.
 
 ### 2026-09-22 · Claude Code
 

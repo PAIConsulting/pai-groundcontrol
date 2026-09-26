@@ -1,6 +1,6 @@
 # AeroNews Newsfeed
 
-Status: in progress · Updated: 2026-09-25
+Status: in progress · Updated: 2026-09-26
 
 ## Brief
 
@@ -18,15 +18,17 @@ stream than one card per article.
 
 ### In progress
 
-- Restructure of the project's Claude Code instructions into a short always-loaded
-  file plus path-scoped rule files, with roadmap items that existed only in the
-  old file migrated into the roadmap. Open as a pull request, waiting on the
-  owner's review.
+- Nothing open in the product repository at the moment.
 
 ### Next
 
-- After the restructure merges, confirm in a fresh session that each rule file
-  loads when its paths are touched, rather than assuming it does.
+- Confirm in a fresh session that each rule file loads when its paths are touched,
+  rather than assuming it does. A check at the end of the 2026-09-26 session was
+  inconclusive, because the rule file had already been read in that session.
+- Decide the canonical navy and cyan for the company brand. Three files disagree
+  and no code was changed. Captured as a plan draft.
+- Decide whether the Act Now tool skill should be tracked in git. It is ignored
+  today, so its edits are local only.
 - Decide whether the archive's intake step should keep untitled items. It
   currently drops them, so the archive silently loses them.
 - Cross-referencing news items: linking related stories to each other and to the
@@ -34,6 +36,12 @@ stream than one card per article.
 
 ### Done
 
+- 2026-09-26 · Audit fixes to the project's instructions merged: stale counts,
+  line numbers and a disabled-digest checklist item corrected, a missing secret
+  added to the list, the branch-naming rule matched to practice, and an
+  unsourced cost total removed
+- 2026-09-25 · Restructure of the project's Claude Code instructions merged, with
+  roadmap items from the old file migrated into the roadmap
 - 2026-09-23 · Placeholder headlines fixed: a missing headline is now written in
   the same per-article model call as the takeaway, with no extra call
 - 2026-09-22 · Seven permission allow rules that Claude Code flagged as unsafe
@@ -88,6 +96,15 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   are invisible to every other clone and to any other session reading the
   repository, and the always-loaded file now points at them.
 
+- 2026-09-26 · Rule files state facts as commands or symbol names, not as counts
+  or line numbers. Why: an audit found the job count, the store count and three
+  script line references all stale within a day of the restructure. A written
+  number cannot be re-checked by the next reader; a command can.
+
+- 2026-09-26 · A wrong claim in a rule is rewritten so the file reads correctly,
+  with no dated migration wording left in it. Why: phrases like "now" and "as
+  before" describe a version the reader never saw.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -100,6 +117,24 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-09-26 · Claude Code
+
+Did: Audited the Claude Code instruction files that load for this project, plus
+the owner's global ones, against the current model and against the repository
+itself. Most findings were stale facts and files contradicting each other, not
+old prompting style. Applied the project-side fixes as one pull request, which
+the owner merged, and a small commit to the global files. Filed a plan draft
+for the brand-colour disagreement and added line-level detail to an existing
+draft for cleaning up dead tool references.
+
+Learned: The most useful check was comparing each claim in a rule file with the
+tree: counts, line numbers and secret lists had drifted, and one checklist item
+referred to a feature that had been switched off. Also, a file that git ignores
+cannot ride along in a pull request, so an edit to it stays local until someone
+decides to track it.
+
+Left off at: Merged. The fresh-session check that rule files load is still open.
 
 ### 2026-09-25 · Claude Code
 

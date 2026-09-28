@@ -1,6 +1,6 @@
 # Conference Hub
 
-Status: in progress · Updated: 2026-09-12
+Status: in progress · Updated: 2026-09-28
 
 ## Brief
 
@@ -41,11 +41,16 @@ documents without help.
 
 ### In progress
 
+- Session support workflow, part 1 of 2 (step-at-a-time walkthrough) — committed,
+  waiting on a manual deploy and a phone check before part 2 starts
 - Converting the next three documents, to find out what else the source format
   throws at the converter
 
 ### Next
 
+- Session support workflow, part 2 of 2: the during-session panel (count and
+  restart log, note-sent marks, leaving-the-room checklist, security card) and a
+  per-session record kept on the phone
 - Commit the library indexer work
 - Send the outstanding questions list to the project owner
 - Move the subdomain request forward — the only blocker nothing else routes around
@@ -60,6 +65,9 @@ documents without help.
 
 ### Done
 
+- 2026-09-28 · Session support workflow walkthrough: setup, one step at a time
+  with clock times from the session start, list view, solo mode, next session,
+  end of day; steps kept in one editable data file; first automated test file
 - 2026-09-12 · Library indexer shipped; hub search now covers unconverted documents
 - 2026-09-12 · Search reads HTML as text rather than markup; phrase search added;
   result caps lifted and match counts reported
@@ -125,6 +133,24 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   Positioning it as a replacement would lose an argument that does not need to be
   had.
 
+- 2026-09-28 · No AI session opens, reads or searches the hub's converted
+  document files. A session may touch only the workflow steps file and the tool
+  list. Links from the workflow into a converted document open it by its id, with
+  no search terms. Why: the 2026-09-09 constraint covers the converted files as
+  much as the originals. A session had read one to pick search words, and the
+  rule was made explicit so it cannot recur through a well-meant shortcut.
+
+- 2026-09-28 · The session support workflow's steps are data, seeded from the
+  owner's own paraphrases, and unanswered policy points (count timing, who runs
+  the Q&A tool, the recording rule) are data values or "pending" labels. Why:
+  when answers arrive they become a one-file edit, not a rebuild, and no
+  document wording enters the code.
+
+- 2026-09-28 · Pushing to the main branch does not deploy the hub. It is a
+  manual upload, done by the owner after each change is verified. Why: the
+  hosting is a direct upload rather than connected to the repository, so a push
+  is a record of the change, not a release.
+
 ## Open questions for Claude
 
 - The first converted document is a reference document being used as an operating
@@ -140,6 +166,26 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-09-28 · Claude Code
+
+Did: Built part 1 of the session support workflow — a guide that walks the
+person supporting a session through their shift one step at a time. Setup takes
+the room, the scheduled start, which organization they are with, whether they
+have a partner, and an optional session ID. Every step shows its clock time from
+the start; the current step is highlighted, late steps turn amber, and nothing
+alerts or advances on its own. Solo mode adds preparation steps and a "rules
+pending" notice. Progress stays on the phone; nothing is sent. Added the hub's
+first automated tests for the time rules and ran a phone-size browser check,
+including a check that the page makes no outbound requests.
+
+Learned: The no-AI rule needs stating for the converted files, not just the
+originals — a session reached for one to pick search words, which was well meant
+and still out of bounds. Also, open policy questions are best carried as data
+("pending", a default number) so the build is never waiting on an answer.
+
+Left off at: Part 1 committed and ready for the owner's manual deploy and phone
+check. Part 2 waits for that.
 
 ### 2026-09-12 · Claude Code
 
@@ -183,18 +229,3 @@ two bundles with the same filename.
 
 Left off at: Hub built and running locally, first document committed, hosting
 plan agreed, deployment blocked on the subdomain.
-
-### 2026-09-09 · Claude Code
-
-Did: Built and tested the hub shell and converted the first document. Established
-the two-artifact content pipeline — an offline content builder and a structure-only
-shape report. Chose the hosting approach and identified the authentication blocker.
-
-Learned: Probing what a stated platform preference actually meant turned out to be
-worth the time — it meant "where we already sign in" rather than a technology
-mandate, which opened up the approach that wins on offline capability and device
-compatibility. Separately, every parser bug found that day was caught by comparing
-output against the real document, and the largest one surfaced because a word count
-did not add up.
-
-Left off at: Hub shell working, one document converted, not deployed.

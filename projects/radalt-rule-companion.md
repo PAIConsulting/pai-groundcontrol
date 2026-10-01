@@ -130,11 +130,11 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   a dated backup outside the working set.
 
 - 2026-10-01 · The 90 claims are described as machine-checked, not as verified by
-  a person. Why: an earlier human review covered 37 claims in a different,
-  related document, and none of those claims is among the 90. The automated
-  checker proves each quote is verbatim and each page number is right; it does
-  not judge whether the plain-language restatement is fair. Publication waits on
-  that human pass.
+  a person. Why: An earlier human review covered 37 claims in a different
+  document; the 90 claims here have been machine-checked only, and a human
+  review is in progress. The automated checker proves each quote is verbatim and
+  each page number is right; it does not judge whether the plain-language
+  restatement is fair. Publication waits on that human pass.
 
 - 2026-10-01 · A rebrand is proven safe by hashing, not by reading the diff. Why:
   the page holds 123 rendered claim blocks in very long lines, where a stray edit

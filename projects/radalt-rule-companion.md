@@ -172,6 +172,14 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   checked. Human review of the 90 is in progress using the claim review tool.
   Publication waits on that pass.
 
+- 2026-10-01 · Correction to the entry above. The earlier 2026-10-01 entry about
+  machine-checked claims was in fact edited in place, through a merged pull
+  request that landed after the entry above was written, so the statement that
+  it was left as written is not accurate. Both entries now agree: the 90 claims
+  are machine-checked only, the earlier 37-claim human review belonged to a
+  different document, and publication waits on human review of the 90. Whether
+  any of the 37 overlap the 90 has not been checked.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is

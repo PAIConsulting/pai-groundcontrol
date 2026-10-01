@@ -40,12 +40,13 @@ can check, no assertion the rule does not support, and no silent staleness.
 
 - Human review of all 90 claims, each with a recorded verdict
 - Decide the public address and whether search engines may index the page
-- Decide whether the memo title should keep the word "compliance"
-- Decide whether letters typed into an aircraft-count field should raise the form's error instead of counting as zero
+- Decide whether the page's own reading-aid boxes and one memo sentence should follow the memo's new wording
 - Consider a lightweight render test for the memo generator
 
 ### Done
 
+- 2026-10-01 · Memo retitled as a quick look, with a subtitle and an estimates caveat; sample regenerated
+- 2026-10-01 · Aircraft-count fields accept only whole numbers or blank; nine cases tested in both fields
 - 2026-10-01 · Sample memo regenerated from the rebranded page; now two pages because the memo has grown
 - 2026-10-01 · Print page breaks fixed so no heading is left alone at the foot of a page
 - 2026-10-01 · Memo form's red error text traced to its trigger and confirmed reachable
@@ -192,6 +193,17 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   different wording and different page numbers. The 90 still need their own human
   review.
 
+- 2026-10-01 · The memo is titled a quick look, not a compliance summary. Why: a
+  title with "compliance" in it reads as an assessment of the reader, and the
+  memo only reports what the rule says and does arithmetic on the FAA's own
+  figures. The rule's own "compliance date" wording for deadlines is kept, and
+  so is the statement that the memo is not a compliance determination.
+
+- 2026-10-01 · The aircraft-count fields are plain text fields checked against
+  the text as typed. Why: a number field reports anything it cannot parse as
+  empty, and empty means none, so letters were silently counted as zero and an
+  exponent as a different number. Only digits or blank now pass.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is
@@ -221,9 +233,15 @@ heading, until the paragraph was also marked as unsplittable. Also, a number fie
 reports letters as an empty value, so the form treats "abc" as blank and counts it
 as zero without any error.
 
-Left off at: Print fix and new sample committed on the rebrand branch; checker
-still passes 90 claims, 0 failures. Not deployed. The silent-zero behaviour is
-reported but not changed. Human review of the 90 claims is still the next step.
+Later the same session: retitled the memo, added a subtitle and a caveat that the
+estimates use the FAA's own figures, fixed the silent-zero behaviour by checking
+the count fields as typed, and regenerated the sample once more. Every use of
+"compliance" and "summary" on the page was listed first; none in the memo body
+reads as an assessment of the reader.
+
+Left off at: Four commits on the rebrand branch; checker passes 90 claims, 0
+failures, before and after. Not deployed. Human review of the 90 claims is still
+the next step.
 
 ### 2026-10-01 (second session) · Claude Code
 

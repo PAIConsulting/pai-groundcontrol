@@ -46,6 +46,8 @@ can check, no assertion the rule does not support, and no silent staleness.
 
 ### Done
 
+- 2026-10-01 · Claim review tool's source links restricted to the official Federal Register site over https
+- 2026-10-01 · Claim review tool added to the repository and documented in the README
 - 2026-10-01 · Both branches pushed to a private repository under the company organization
 - 2026-10-01 · Dated backup files untracked and ignored going forward; copies kept on disk
 - 2026-10-01 · Project placed under version control with a baseline matching the live page
@@ -163,6 +165,13 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   this repository's visibility ever changes, its history needs a separate review,
   because the baseline commit records the page as it stood before the rebrand.
 
+- 2026-10-01 · This entry replaces the wording of the earlier 2026-10-01 entry
+  about machine-checked claims; that entry is left as written. The 90 claims are
+  machine-checked, not human-verified. The earlier 37-claim human review belonged
+  to a different document. Whether any of those 37 overlap the 90 has not been
+  checked. Human review of the 90 is in progress using the claim review tool.
+  Publication waits on that pass.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is
@@ -191,9 +200,16 @@ need checking separately. Also, with backups tracked on one branch and untracked
 on the other, switching between the two removes them from disk on the way back;
 merging the newer branch into the older one ends that.
 
-Left off at: Remote in place, branches in sync. One new review file in the working
-folder is not yet committed. Publication decisions and the human review of the 90
-claims are unchanged and still next.
+Later the same session: committed the claim review tool and a README line on how
+to use it. An automated review of that commit found the tool built its source link
+from the loaded file without checking the address; the link now accepts only an
+https address on the official Federal Register site and otherwise falls back to
+the built-in one. Recorded a superseding decision on how the claim counts are
+described.
+
+Left off at: Remote in place, branches in sync, working folder clean. Human review
+of the 90 claims is in progress with the review tool; publication decisions wait
+on it.
 
 ### 2026-10-01 (first session) · Claude Code
 

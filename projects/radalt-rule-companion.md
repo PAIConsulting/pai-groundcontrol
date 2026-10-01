@@ -46,6 +46,8 @@ can check, no assertion the rule does not support, and no silent staleness.
 
 ### Done
 
+- 2026-10-01 · Both branches pushed to a private repository under the company organization
+- 2026-10-01 · Dated backup files untracked and ignored going forward; copies kept on disk
 - 2026-10-01 · Project placed under version control with a baseline matching the live page
 - 2026-10-01 · Page rebranded to the publishing organization: name, logo, colors, status marking
 - 2026-10-01 · Wording that tied the page to another organization's document removed
@@ -154,6 +156,13 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   exclusion kept. Why: both are publication decisions that follow the human
   review, and the live page should not change until then.
 
+- 2026-10-01 · Backup files were untracked with a new commit rather than removed
+  from earlier commits. Why: the instruction was to leave history as it is, and
+  the repository is private. The ignore rule keeps new safety copies local; the
+  two earliest commits still contain the old ones, and that is accepted. Before
+  this repository's visibility ever changes, its history needs a separate review,
+  because the baseline commit records the page as it stood before the rebrand.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is
@@ -166,7 +175,27 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
 
-### 2026-10-01 · Claude Code
+### 2026-10-01 (second session) · Claude Code
+
+Did: Gave the project a private remote under the company organization and pushed
+both branches. A pre-push check found the ignore file covered only one of sixteen
+dated backup files; the other fifteen were already committed. With history left
+untouched by instruction, they were untracked in a new commit and a pattern added
+so future safety copies stay local. Confirmed afterwards that the repository is
+private, both branches arrived at the expected commits, and every backup is still
+on disk.
+
+Learned: An ignore rule only governs files that are not yet tracked, so "is it in
+the ignore file" and "is it out of the repository" are different questions and
+need checking separately. Also, with backups tracked on one branch and untracked
+on the other, switching between the two removes them from disk on the way back;
+merging the newer branch into the older one ends that.
+
+Left off at: Remote in place, branches in sync. One new review file in the working
+folder is not yet committed. Publication decisions and the human review of the 90
+claims are unchanged and still next.
+
+### 2026-10-01 (first session) · Claude Code
 
 Did: Inventoried the project ahead of publication, then rebranded the page.
 Found the folder was not under version control and fixed that with a baseline
@@ -210,35 +239,3 @@ it fixes.
 Left off at: Clean. Checker passes 90 claims, 0 failures, including the new
 source-of-truth check. Generator deleted, backup retained. Next open item is
 whether the memo generator deserves a real render test.
-
-### 2026-09-08 (first session) · Claude Code
-
-Did: Reworked the generated memo after a review found it asserting things the
-rule does not support and omitting requirements that apply to the reader. Removed
-an eligibility verdict and replaced it with what the rule actually states; added a
-cost caveat for non-commercial operators, post-deadline operating restrictions, an
-exemption requirement for night-vision-goggle operations, and a qualification that
-post-deadline authorizations are case-by-case and not expected to become routine.
-Added a scope statement at the top of the page, in the page footer, and at the top
-of the memo, plus a staleness note in the memo footer. Excluded the page from
-search indexes. Numbered the citations in copied text and keyed them to a sources
-list so each claim is individually checkable. Redefined the citation rule, audited
-all 90 claims against it, and corrected six. Retired the generator script behind a
-guard that exits non-zero, and updated the project README to match.
-
-Learned: Three things worth carrying forward. First, the rule's own text was
-already sufficient for every correction — no new source research was needed, only
-better selection from claims that already existed. Second, page attribution cannot
-be done by document position: the source HTML is not in reading order, a late
-section sits physically past the final page marker, and the last page carries no
-marker at all. Per-paragraph metadata plus in-paragraph break markers is the only
-reliable method. Third, an instruction can be wrong in a way that is only visible
-once applied — collapsing straddling citations to a single page was requested,
-implemented, and then correctly reverted because it produced labels pointing at
-pages where the quoted sentence is not printed.
-
-Left off at: Clean. Verifier passes 90 claims, 0 failures. An independent audit
-of quoted-sentence page attribution reports 0 mismatches. The deliverable and its
-deployment copy are identical, and the claims file agrees with the copy embedded
-in the page on every field. The generator refuses to run. Next session should pick
-up the duplicated-citation-data question in Open questions above.

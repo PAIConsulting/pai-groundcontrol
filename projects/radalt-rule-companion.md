@@ -180,6 +180,15 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   different document, and publication waits on human review of the 90. Whether
   any of the 37 overlap the 90 has not been checked.
 
+- 2026-10-01 · Overlap between the two claim sets was checked by reading in a
+  separate chat session, matching by meaning, not machine-checked. Of the 37
+  claims in the earlier human review, 22 state the same fact as one of the 90, 5
+  are related but not the same statement, and 10 have no counterpart. This
+  updates the earlier statements that overlap had not been checked. No verdict
+  from the 37 is carried over to the 90, because they were reviewed against
+  different wording and different page numbers. The 90 still need their own human
+  review.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is

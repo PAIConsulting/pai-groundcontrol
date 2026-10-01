@@ -1,6 +1,6 @@
 # Radio Altimeter Rule Companion
 
-Status: in progress · Updated: 2026-09-08
+Status: in progress · Updated: 2026-10-01
 
 ## Brief
 
@@ -27,19 +27,31 @@ can check, no assertion the rule does not support, and no silent staleness.
 - [x] Kept out of search indexes
 - [x] Citation data has one source of truth, with the derived copy verified automatically
 - [ ] Memo rendering covered by something better than a hand-run harness
+- [ ] Each of the 90 claims reviewed by a person, with a recorded verdict
 
 ## Board
 
 ### In progress
 
-- Nothing active. Session closed at a clean state.
+- Rebrand complete on a branch, not yet deployed. Waiting on a person-by-person
+  review of the 90 claims before any publication decision.
 
 ### Next
 
+- Human review of all 90 claims, each with a recorded verdict
+- Decide the public address and whether search engines may index the page
+- Decide whether the memo title should keep the word "compliance"
+- Regenerate the sample memo so it matches the current page
 - Consider a lightweight render test for the memo generator
 
 ### Done
 
+- 2026-10-01 · Project placed under version control with a baseline matching the live page
+- 2026-10-01 · Page rebranded to the publishing organization: name, logo, colors, status marking
+- 2026-10-01 · Wording that tied the page to another organization's document removed
+- 2026-10-01 · Footer now names the publisher and states the page is not an FAA publication
+- 2026-10-01 · Before-and-after proof that no claim, quote, page label or link changed
+- 2026-10-01 · Claim counts reconciled: 90 machine-checked claims, none yet reviewed by a person
 - 2026-09-08 · Rebate section rewritten to report the program, not a verdict on the reader
 - 2026-09-08 · Non-commercial unit cost caveat added for the operator classes it applies to
 - 2026-09-08 · Post-deadline restrictions and the night-vision-goggle exemption added
@@ -113,15 +125,69 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   else records — is now in the project README. The last version is retained as
   a dated backup outside the working set.
 
+- 2026-10-01 · The 90 claims are described as machine-checked, not as verified by
+  a person. Why: an earlier human review covered 37 claims in a different,
+  related document, and none of those claims is among the 90. The automated
+  checker proves each quote is verbatim and each page number is right; it does
+  not judge whether the plain-language restatement is fair. Publication waits on
+  that human pass.
+
+- 2026-10-01 · A rebrand is proven safe by hashing, not by reading the diff. Why:
+  the page holds 123 rendered claim blocks in very long lines, where a stray edit
+  is easy to miss by eye. The ordered list of every rendered claim (text, page
+  label, links, quote), the embedded claims block and the claims file were hashed
+  before and after and must be identical, alongside the existing checker.
+
+- 2026-10-01 · System fonts were kept instead of the brand typeface. Why: loading
+  a web font from a third party would send each reader's address to that party,
+  and the page promises that nothing leaves it. The promise outranks the typeface.
+
+- 2026-10-01 · The accent color is used only as a rule under the header band, and
+  error text has its own color outside the brand palette. Why: the accent is too
+  light on white to meet contrast minimums for text or a focus ring, and an error
+  message in the same navy as everything else does not read as an error.
+
+- 2026-10-01 · The disclaimer names only the FAA. Why: naming other organizations
+  in a statement of non-affiliation creates the association it is meant to remove.
+
+- 2026-10-01 · The deployment copy was left untouched and the search-engine
+  exclusion kept. Why: both are publication decisions that follow the human
+  review, and the live page should not change until then.
+
 ## Open questions for Claude
 
 - Is a render test worth building for the memo generator, given verification is
   currently a hand-run harness that stubs the DOM?
+- What is the lightest way to record a person's verdict per claim so that it
+  travels with the claims file and the checker can report review coverage?
 
 ## Sessions
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-10-01 · Claude Code
+
+Did: Inventoried the project ahead of publication, then rebranded the page.
+Found the folder was not under version control and fixed that with a baseline
+commit that matches the live page byte for byte. Reconciled two claim counts that
+had been confused: the page carries 90 claims, all passing the automated checker,
+while a 37-claim human review belonged to a different document. Replaced the
+masthead name and logo, moved the colors to the publisher's brand guide, reworded
+the status marking, removed a sentence tying the page to another document, and
+added a footer line naming the publisher and stating the page is not an FAA
+publication. Gave the memo form's error text its own readable color.
+
+Learned: The page's small number of identity elements made the rebrand cheap; the
+expensive part was proving nothing else moved. Hashing the rendered claims in
+order turned that into a yes-or-no answer. Also, "verified" had been carrying two
+meanings — machine-checked against the source, and reviewed by a person — and
+only the first is true of this page today.
+
+Left off at: Rebrand committed on a branch; checker passes 90 claims, 0 failures,
+0 warnings, identical to before. Not deployed, and the deployment copy still
+matches the live page. The sample memo file still shows the old look. Next is the
+human review of the 90 claims, then the publication decisions listed under Next.
 
 ### 2026-09-08 (second session) · Claude Code
 

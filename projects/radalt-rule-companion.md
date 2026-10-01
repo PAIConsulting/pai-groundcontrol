@@ -40,11 +40,11 @@ can check, no assertion the rule does not support, and no silent staleness.
 
 - Human review of all 90 claims, each with a recorded verdict
 - Decide the public address and whether search engines may index the page
-- Decide whether the page's own reading-aid boxes and one memo sentence should follow the memo's new wording
 - Consider a lightweight render test for the memo generator
 
 ### Done
 
+- 2026-10-01 · Reading-aid boxes at the top and foot of the page matched to the memo's box; all three identical again
 - 2026-10-01 · Memo retitled as a quick look, with a subtitle and an estimates caveat; sample regenerated
 - 2026-10-01 · Aircraft-count fields accept only whole numbers or blank; nine cases tested in both fields
 - 2026-10-01 · Sample memo regenerated from the rebranded page; now two pages because the memo has grown
@@ -239,7 +239,11 @@ the count fields as typed, and regenerated the sample once more. Every use of
 "compliance" and "summary" on the page was listed first; none in the memo body
 reads as an assessment of the reader.
 
-Left off at: Four commits on the rebrand branch; checker passes 90 claims, 0
+Then matched the page's two reading-aid boxes to the memo's wording and updated
+the one memo sentence that still used the old name. The sample memo's content
+did not change, so it was not regenerated.
+
+Left off at: Five commits on the rebrand branch; checker passes 90 claims, 0
 failures, before and after. Not deployed. Human review of the 90 claims is still
 the next step.
 

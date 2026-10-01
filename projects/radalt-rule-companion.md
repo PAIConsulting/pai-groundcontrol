@@ -41,11 +41,14 @@ can check, no assertion the rule does not support, and no silent staleness.
 - Human review of all 90 claims, each with a recorded verdict
 - Decide the public address and whether search engines may index the page
 - Decide whether the memo title should keep the word "compliance"
-- Regenerate the sample memo so it matches the current page
+- Decide whether letters typed into an aircraft-count field should raise the form's error instead of counting as zero
 - Consider a lightweight render test for the memo generator
 
 ### Done
 
+- 2026-10-01 · Sample memo regenerated from the rebranded page; now two pages because the memo has grown
+- 2026-10-01 · Print page breaks fixed so no heading is left alone at the foot of a page
+- 2026-10-01 · Memo form's red error text traced to its trigger and confirmed reachable
 - 2026-10-01 · Claim review tool's source links restricted to the official Federal Register site over https
 - 2026-10-01 · Claim review tool added to the repository and documented in the README
 - 2026-10-01 · Both branches pushed to a private repository under the company organization
@@ -201,6 +204,27 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
 
+### 2026-10-01 (third session) · Claude Code
+
+Did: Fixed print page breaks and regenerated the sample memo. Headings now stay
+with the content under them, the one-line introduction and compliance-date lines
+stay attached to their heading, and claim blocks do not split across pages. The
+sample memo was regenerated from the rebranded page with the same answers as the
+old one, and every page of both the memo and the full printed page was checked
+for a heading left at the foot of a page; none remain. Separately traced the memo
+form's red error text: it shows on the aircraft-count question when a count is a
+decimal or a negative number.
+
+Learned: Telling the browser not to break after a short paragraph is not enough
+on its own. It split a two-line introduction across pages rather than move the
+heading, until the paragraph was also marked as unsplittable. Also, a number field
+reports letters as an empty value, so the form treats "abc" as blank and counts it
+as zero without any error.
+
+Left off at: Print fix and new sample committed on the rebrand branch; checker
+still passes 90 claims, 0 failures. Not deployed. The silent-zero behaviour is
+reported but not changed. Human review of the 90 claims is still the next step.
+
 ### 2026-10-01 (second session) · Claude Code
 
 Did: Gave the project a private remote under the company organization and pushed
@@ -251,24 +275,3 @@ Left off at: Rebrand committed on a branch; checker passes 90 claims, 0 failures
 matches the live page. The sample memo file still shows the old look. Next is the
 human review of the 90 claims, then the publication decisions listed under Next.
 
-### 2026-09-08 (second session) · Claude Code
-
-Did: Closed the duplicated-citation-data question from the previous session. The
-source-of-truth file and the copy embedded in the deliverable are now compared on
-every checker run; a mismatch fails loudly and names each differing field, and a
-repair flag rewrites the copy from source. Verified by injecting drift, confirming
-the failure, confirming the repair, and confirming the repair cannot push bad
-citation data past the independent source checks. Deleted the retired generator
-after recording the one thing in it that nothing else captured. Made end-of-session
-state updates a standing rule across projects rather than a per-project habit.
-
-Learned: The duplication is structural, not accidental — an offline deliverable
-that must open from a local file cannot fetch its own data, so a copy has to be
-embedded. The question was never how to remove the copy but how to stop trusting
-it. Also worth noting the repair flag deliberately does not suppress the citation
-checks; a sync tool that could silence the verifier would be worse than the drift
-it fixes.
-
-Left off at: Clean. Checker passes 90 claims, 0 failures, including the new
-source-of-truth check. Generator deleted, backup retained. Next open item is
-whether the memo generator deserves a real render test.

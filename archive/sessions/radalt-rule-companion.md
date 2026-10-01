@@ -2,6 +2,28 @@
 
 Older entries rolled out of `projects/radalt-rule-companion.md`, newest first.
 
+### 2026-09-08 (second session) · Claude Code
+
+Did: Closed the duplicated-citation-data question from the previous session. The
+source-of-truth file and the copy embedded in the deliverable are now compared on
+every checker run; a mismatch fails loudly and names each differing field, and a
+repair flag rewrites the copy from source. Verified by injecting drift, confirming
+the failure, confirming the repair, and confirming the repair cannot push bad
+citation data past the independent source checks. Deleted the retired generator
+after recording the one thing in it that nothing else captured. Made end-of-session
+state updates a standing rule across projects rather than a per-project habit.
+
+Learned: The duplication is structural, not accidental — an offline deliverable
+that must open from a local file cannot fetch its own data, so a copy has to be
+embedded. The question was never how to remove the copy but how to stop trusting
+it. Also worth noting the repair flag deliberately does not suppress the citation
+checks; a sync tool that could silence the verifier would be worse than the drift
+it fixes.
+
+Left off at: Clean. Checker passes 90 claims, 0 failures, including the new
+source-of-truth check. Generator deleted, backup retained. Next open item is
+whether the memo generator deserves a real render test.
+
 ### 2026-09-08 (first session) · Claude Code
 
 Did: Reworked the generated memo after a review found it asserting things the

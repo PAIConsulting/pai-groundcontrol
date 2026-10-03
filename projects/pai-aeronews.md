@@ -18,9 +18,7 @@ stream than one card per article.
 
 ### In progress
 
-- One roadmap pull request open: checks off the cleanup of a dead dependency
-  left from the earlier migration to Anthropic models. The dependency is already
-  gone from the package manifest and lockfile.
+- Nothing open in the product repository at the moment.
 
 ### Next
 
@@ -41,6 +39,9 @@ stream than one card per article.
 
 ### Done
 
+- 2026-10-03 · Roadmap item for a dead dependency, left from the earlier
+  migration to Anthropic models, checked off after confirming the package
+  manifest and lockfile are both free of it
 - 2026-10-03 · Roadmap line about a retired calibration anchor corrected to match
   the skill file
 - 2026-10-03 · Remaining audit fixes merged: ticker direction corrected in a
@@ -155,7 +156,7 @@ No code changed.
 Learned: The roadmap had carried a finished item as open since the migration.
 Checking it took one search of the two package files.
 
-Left off at: The roadmap pull request is open, waiting on the owner's merge.
+Left off at: Merged. Nothing open in the product repository.
 
 ### 2026-10-03 · Claude Code
 

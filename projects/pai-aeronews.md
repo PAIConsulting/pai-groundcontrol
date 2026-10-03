@@ -1,6 +1,6 @@
 # AeroNews Newsfeed
 
-Status: in progress · Updated: 2026-09-26
+Status: in progress · Updated: 2026-10-03
 
 ## Brief
 
@@ -18,10 +18,17 @@ stream than one card per article.
 
 ### In progress
 
-- Nothing open in the product repository at the moment.
+- Remaining audit fixes from 2026-09-26: one pull request open, waiting on the
+  owner's review.
 
 ### Next
 
+- One roadmap line still describes a retired calibration anchor as kept in a
+  skill file. The anchor is now removed, so the line needs a matching edit.
+  Proposed to the owner, not applied.
+- The instruction that every session read the platform documents first was made
+  conditional in this project. The same preamble likely sits in the other
+  platform repositories and may need the same change.
 - Confirm in a fresh session that each rule file loads when its paths are touched,
   rather than assuming it does. A check at the end of the 2026-09-26 session was
   inconclusive, because the rule file had already been read in that session.
@@ -36,6 +43,8 @@ stream than one card per article.
 
 ### Done
 
+- 2026-10-03 · Single quotes are now escaped in two internal review pages, so a
+  value can no longer break out of a single-quoted attribute
 - 2026-09-26 · Audit fixes to the project's instructions merged: stale counts,
   line numbers and a disabled-digest checklist item corrected, a missing secret
   added to the list, the branch-naming rule matched to practice, and an
@@ -105,6 +114,12 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   with no dated migration wording left in it. Why: phrases like "now" and "as
   before" describe a version the reader never saw.
 
+- 2026-10-03 · A retired rule or calibration case is deleted from the instruction
+  file, not kept struck through with an explanation. Dated "currently" notes are
+  rewritten as standing conditions. Why: a model reads struck-through text and
+  dated snapshots as live instructions, and the history already lives in version
+  control.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -117,6 +132,27 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-10-03 · Claude Code
+
+Did: Applied the remaining findings from the 2026-09-26 instruction audit. A
+frontend rule had the ticker direction backwards and was corrected after the
+code was checked. The platform-reading preamble now applies only to
+platform-level work. An inline API-key example was replaced with a pointer to
+the approved hidden-prompt method. A research skill's retired anchor and dated
+notes were removed, in both of its copies. Two internal pages now escape single
+quotes. Built the project, loaded both pages in a headless browser, ran the test
+suite, and opened one pull request. Edits to the ignored Act Now skill stayed
+local.
+
+Learned: A drift guard is only trusted after it has been made to fire. The two
+skill copies were confirmed identical, then one was changed on purpose to see
+the warning, then restored. Also, the browser automation server could not start
+without a full Chrome install, but a headless browser already on the machine
+was enough to load the pages.
+
+Left off at: Pull request open, waiting on the owner. A roadmap line that the
+change made stale is proposed but not edited.
 
 ### 2026-09-26 · Claude Code
 
@@ -157,27 +193,3 @@ drafted against an older copy of a file silently reverts whatever merged since.
 Compare against the current main branch, not the copy the draft was made from.
 
 Left off at: Pull request open with twelve files, waiting on the owner's review.
-
-### 2026-09-22 · Claude Code
-
-Did: Cleaned up this project's local permission rules. Claude Code's own startup
-warnings flagged seven allow rules with a wildcard in the middle; one became a
-narrow trailing-wildcard rule and six were removed. Two more malformed rules were
-removed: one was a fragment that could never be a runnable command, and the other,
-which looked broad, matched nothing in headless tests. Then
-investigated a ticker card that showed a placeholder instead of a headline. It
-traced to a hard-coded fallback in the ingestion step, with a second effect: the
-archive intake drops the same items. A fix was drafted, reusing the existing
-per-article model call rather than adding one, but not applied because the file
-is designated frozen. Finally, set up the plans system and filed two drafts: the
-pending headline decision, and an idea for cross-referencing news items.
-
-Learned: Reading a permission rule is not the same as knowing what it matches.
-One rule looked broad and matched nothing, and the reliable list of flagged rules
-came from the tool itself. Separately, a cache that makes repeat work free can
-also keep a bad result on screen. The drafted fix needed a cache change, or the
-already-cached card would have kept its placeholder for as long as the cache
-entry lived.
-
-Left off at: Both drafts filed, the headline decision waiting on the owner, and
-the local permission file checked clean.

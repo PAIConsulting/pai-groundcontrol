@@ -18,8 +18,7 @@ stream than one card per article.
 
 ### In progress
 
-- A roadmap line that described a retired calibration anchor as still kept in a
-  skill file is reworded. One pull request open, waiting on the owner's review.
+- Nothing open in the product repository at the moment.
 
 ### Next
 
@@ -40,6 +39,8 @@ stream than one card per article.
 
 ### Done
 
+- 2026-10-03 · Roadmap line about a retired calibration anchor corrected to match
+  the skill file
 - 2026-10-03 · Remaining audit fixes merged: ticker direction corrected in a
   frontend rule, the platform-reading preamble made conditional, an inline
   API-key example replaced, and a research skill's retired and dated notes
@@ -152,8 +153,7 @@ the warning, then restored. Also, the browser automation server could not start
 without a full Chrome install, but a headless browser already on the machine
 was enough to load the pages.
 
-Left off at: The owner merged the fixes and approved the roadmap rewording,
-which is now a second pull request waiting on review.
+Left off at: Both pull requests merged. Nothing open in the product repository.
 
 ### 2026-09-26 · Claude Code
 

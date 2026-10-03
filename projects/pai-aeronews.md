@@ -18,14 +18,11 @@ stream than one card per article.
 
 ### In progress
 
-- Remaining audit fixes from 2026-09-26: one pull request open, waiting on the
-  owner's review.
+- A roadmap line that described a retired calibration anchor as still kept in a
+  skill file is reworded. One pull request open, waiting on the owner's review.
 
 ### Next
 
-- One roadmap line still describes a retired calibration anchor as kept in a
-  skill file. The anchor is now removed, so the line needs a matching edit.
-  Proposed to the owner, not applied.
 - The instruction that every session read the platform documents first was made
   conditional in this project. The same preamble likely sits in the other
   platform repositories and may need the same change.
@@ -43,6 +40,10 @@ stream than one card per article.
 
 ### Done
 
+- 2026-10-03 · Remaining audit fixes merged: ticker direction corrected in a
+  frontend rule, the platform-reading preamble made conditional, an inline
+  API-key example replaced, and a research skill's retired and dated notes
+  removed
 - 2026-10-03 · Single quotes are now escaped in two internal review pages, so a
   value can no longer break out of a single-quoted attribute
 - 2026-09-26 · Audit fixes to the project's instructions merged: stale counts,
@@ -151,8 +152,8 @@ the warning, then restored. Also, the browser automation server could not start
 without a full Chrome install, but a headless browser already on the machine
 was enough to load the pages.
 
-Left off at: Pull request open, waiting on the owner. A roadmap line that the
-change made stale is proposed but not edited.
+Left off at: The owner merged the fixes and approved the roadmap rewording,
+which is now a second pull request waiting on review.
 
 ### 2026-09-26 · Claude Code
 

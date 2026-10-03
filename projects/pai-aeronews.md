@@ -18,7 +18,9 @@ stream than one card per article.
 
 ### In progress
 
-- Nothing open in the product repository at the moment.
+- One roadmap pull request open: checks off the cleanup of a dead dependency
+  left from the earlier migration to Anthropic models. The dependency is already
+  gone from the package manifest and lockfile.
 
 ### Next
 
@@ -122,6 +124,12 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   dated snapshots as live instructions, and the history already lives in version
   control.
 
+- 2026-10-03 · A roadmap item for removing a dependency is checked off only after
+  the package manifest and the lockfile are both confirmed free of it. Why: the
+  item outlived the migration that made it obsolete, because nobody re-checked
+  the files. An item closed from memory can just as easily be closed while the
+  dependency is still there.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -134,6 +142,20 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-10-03 · Claude Code (Anthropic-only cleanup)
+
+Did: Part of a cleanup across the owner's work folders after a scan for
+non-Anthropic AI services. For this project the only finding was a roadmap
+item for a dependency left over from the earlier move to Anthropic models.
+Confirmed the dependency is absent from the package manifest and lockfile,
+checked the item off, bumped the roadmap version, and opened one pull request.
+No code changed.
+
+Learned: The roadmap had carried a finished item as open since the migration.
+Checking it took one search of the two package files.
+
+Left off at: The roadmap pull request is open, waiting on the owner's merge.
 
 ### 2026-10-03 · Claude Code
 
@@ -172,25 +194,3 @@ cannot ride along in a pull request, so an edit to it stays local until someone
 decides to track it.
 
 Left off at: Merged. The fresh-session check that rule files load is still open.
-
-### 2026-09-25 · Claude Code
-
-Did: Reviewed a restructure of the project's Claude Code instructions from one
-large file into a short root file plus seven path-scoped rule files and two
-on-demand documents, and opened it as a pull request. Checked every removed line
-against the new files before anything moved. The owner chose five fixes from
-what that found: two merge-checklist steps and a security rule restored to the
-root file, the card-renderer rules restored to their rule file, a contact rule
-widened to cover skill files, and nineteen roadmap items migrated into the
-roadmap. An old version changelog was left out. While branching, found that a
-change merged after the restructure was drafted had edited the old file; ported
-it so the restructure would not undo it.
-
-Learned: Two things would have gone wrong without a check. First, the new rule
-files were ignored by git twice over — once by the repository's own ignore file
-and once by a machine-wide one — so the pull request would have shipped a short
-root file pointing at rules that existed only locally. Second, a restructure
-drafted against an older copy of a file silently reverts whatever merged since.
-Compare against the current main branch, not the copy the draft was made from.
-
-Left off at: Pull request open with twelve files, waiting on the owner's review.

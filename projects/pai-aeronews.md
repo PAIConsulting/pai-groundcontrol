@@ -18,17 +18,16 @@ stream than one card per article.
 
 ### In progress
 
-- Paper-metadata enrichment, first step: the academic intake keeps the
-  researcher, institution, topic and reference metadata it already receives, in
-  a separate file beside the paper store. Two pull requests wait on the owner's
-  merge, and the workflow change must merge first.
+- Paper-metadata enrichment, second step: backfill that metadata for the papers
+  already in the store, and keep re-checking reference lists that were still
+  empty at first fetch. The script is built and was run in full against a local
+  copy (not published). Two pull requests wait on the owner's merge, the script
+  first, then the workflow step that runs it.
 
 ### Next
 
-- Paper-metadata enrichment, second step: backfill that metadata for the papers
-  already in the store, and refresh the reference lists, which are often still
-  empty when a paper is first ingested. Captured as a card in the product
-  repository.
+- Paper-metadata enrichment, after merge: confirm over the first few daily runs
+  that the metadata file on the store branch fills to cover the paper store.
 - The instruction that every session read the platform documents first was made
   conditional in this project. The same preamble likely sits in the other
   platform repositories and may need the same change.
@@ -46,6 +45,9 @@ stream than one card per article.
 
 ### Done
 
+- 2026-10-07 · Paper-metadata enrichment, first step: the academic intake keeps
+  the researcher, institution, topic and reference metadata it receives, in a
+  separate file beside the paper store
 - 2026-10-03 · Roadmap item for a dead dependency, left from the earlier
   migration to Anthropic models, checked off after confirming the package
   manifest and lockfile are both free of it
@@ -150,6 +152,21 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   stored once and never refreshed would later read as "never cited." If it is
   wanted, it belongs in a refreshable backfill with its own fetch date.
 
+- 2026-10-07 · The metadata backfill runs as a step inside the daily intake job,
+  not as a separate push. Why: the intake job writes its own copy of the
+  metadata file back at the end of every run, so anything pushed from outside
+  could be overwritten, and the job's start time varies by hours. Running between
+  the job's own read and its own write leaves nothing to race. The step may fail
+  without failing the job, because a failed backfill loses nothing and resumes
+  the next day; the job's write still fails loudly.
+
+- 2026-10-07 · An empty reference list is re-checked for 30 days after the
+  paper's metadata is first fetched, at most once a week, and a list that has
+  entries is never replaced by an empty one. Why: reference lists fill in some
+  days after publication, but re-checking forever would spend requests on papers
+  whose lists never fill. The first-fetch time is kept unchanged so the 30-day
+  window can close, and each re-check is stamped separately.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -162,6 +179,22 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-10-07 · Claude Code (paper metadata, step two)
+
+Did: Built and tested the backfill script, and ran it in full against a local
+copy of the paper store, not published. Every paper in the store was matched,
+and about six in seven came back with a reference list. Measured the metadata
+file's per-paper size and raised the size guard's figure to match; it stays
+well inside the per-file limit at the store's cap. Opened two pull requests: the
+script, and a separate workflow step that runs it inside the daily intake job.
+
+Learned: The owner's refresh rule, as first stated, used one timestamp for two
+jobs. If a re-check reset it, the 30-day window would never close. Keeping the
+first-fetch time fixed and stamping re-checks separately satisfied both halves.
+Each guard was again broken on purpose to confirm a test caught it.
+
+Left off at: Both pull requests await the owner's merge, the script first.
 
 ### 2026-10-07 · Claude Code (paper metadata, step one)
 
@@ -193,23 +226,3 @@ Learned: The roadmap had carried a finished item as open since the migration.
 Checking it took one search of the two package files.
 
 Left off at: Merged. Nothing open in the product repository.
-
-### 2026-10-03 · Claude Code
-
-Did: Applied the remaining findings from the 2026-09-26 instruction audit. A
-frontend rule had the ticker direction backwards and was corrected after the
-code was checked. The platform-reading preamble now applies only to
-platform-level work. An inline API-key example was replaced with a pointer to
-the approved hidden-prompt method. A research skill's retired anchor and dated
-notes were removed, in both of its copies. Two internal pages now escape single
-quotes. Built the project, loaded both pages in a headless browser, ran the test
-suite, and opened one pull request. Edits to the ignored Act Now skill stayed
-local.
-
-Learned: A drift guard is only trusted after it has been made to fire. The two
-skill copies were confirmed identical, then one was changed on purpose to see
-the warning, then restored. Also, the browser automation server could not start
-without a full Chrome install, but a headless browser already on the machine
-was enough to load the pages.
-
-Left off at: Both pull requests merged. Nothing open in the product repository.

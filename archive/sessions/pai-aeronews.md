@@ -2,6 +2,26 @@
 
 Older entries rolled out of `projects/pai-aeronews.md`, newest first.
 
+### 2026-10-03 · Claude Code
+
+Did: Applied the remaining findings from the 2026-09-26 instruction audit. A
+frontend rule had the ticker direction backwards and was corrected after the
+code was checked. The platform-reading preamble now applies only to
+platform-level work. An inline API-key example was replaced with a pointer to
+the approved hidden-prompt method. A research skill's retired anchor and dated
+notes were removed, in both of its copies. Two internal pages now escape single
+quotes. Built the project, loaded both pages in a headless browser, ran the test
+suite, and opened one pull request. Edits to the ignored Act Now skill stayed
+local.
+
+Learned: A drift guard is only trusted after it has been made to fire. The two
+skill copies were confirmed identical, then one was changed on purpose to see
+the warning, then restored. Also, the browser automation server could not start
+without a full Chrome install, but a headless browser already on the machine
+was enough to load the pages.
+
+Left off at: Both pull requests merged. Nothing open in the product repository.
+
 ### 2026-09-26 · Claude Code
 
 Did: Audited the Claude Code instruction files that load for this project, plus

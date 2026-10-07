@@ -1,6 +1,6 @@
 # AeroNews Newsfeed
 
-Status: in progress · Updated: 2026-10-03
+Status: in progress · Updated: 2026-10-07
 
 ## Brief
 
@@ -18,10 +18,17 @@ stream than one card per article.
 
 ### In progress
 
-- Nothing open in the product repository at the moment.
+- Paper-metadata enrichment, first step: the academic intake keeps the
+  researcher, institution, topic and reference metadata it already receives, in
+  a separate file beside the paper store. Two pull requests wait on the owner's
+  merge, and the workflow change must merge first.
 
 ### Next
 
+- Paper-metadata enrichment, second step: backfill that metadata for the papers
+  already in the store, and refresh the reference lists, which are often still
+  empty when a paper is first ingested. Captured as a card in the product
+  repository.
 - The instruction that every session read the platform documents first was made
   conditional in this project. The same preamble likely sits in the other
   platform repositories and may need the same change.
@@ -131,6 +138,18 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
   the files. An item closed from memory can just as easily be closed while the
   dependency is still there.
 
+- 2026-10-07 · Paper metadata is stored in a separate, compact file keyed by
+  paper id, not inside the paper store. Why: measured on a live run, it would
+  have more than tripled the size of each stored paper. At the store's cap that
+  passes the hosting platform's hard per-file push limit, and the tagging agent
+  reads the whole store on every run. The separate file is pruned to the
+  store's papers, so it shares the store's cap, and a size test guards it.
+
+- 2026-10-07 · A citation count is not stored at intake. Why: it was zero on
+  every paper sampled, because papers are days old when they arrive. A zero
+  stored once and never refreshed would later read as "never cited." If it is
+  wanted, it belongs in a refreshable backfill with its own fetch date.
+
 ## Open questions for Claude
 
 - What does "frozen" mean for the public pipeline when the designated-frozen file
@@ -143,6 +162,23 @@ Append-only. Never edit or delete a past entry; supersede it with a new one.
 
 Newest first. Roll entries older than the most recent three into
 `archive/sessions/`.
+
+### 2026-10-07 · Claude Code (paper metadata, step one)
+
+Did: Checked a sample of recent papers to see which metadata fields actually
+arrive populated, then measured how much storing them would grow the paper
+store. Storing them in the store would have crossed the hosting platform's
+per-file limit at the store's cap, so the owner chose a separate file. Opened
+two pull requests: a small workflow change that carries the new file, and the
+intake change itself, with tests, a size guard, documentation updates, and a
+card for the backfill step.
+
+Learned: Checking before building paid off twice. The planned field list
+assumed every field was useful at intake, but one was always zero and another
+was often empty, and the size check found a limit the plan had not anticipated.
+The size guard was also made to fail on purpose before it was trusted.
+
+Left off at: Both pull requests await the owner's merge, workflow change first.
 
 ### 2026-10-03 · Claude Code (Anthropic-only cleanup)
 
@@ -177,21 +213,3 @@ without a full Chrome install, but a headless browser already on the machine
 was enough to load the pages.
 
 Left off at: Both pull requests merged. Nothing open in the product repository.
-
-### 2026-09-26 · Claude Code
-
-Did: Audited the Claude Code instruction files that load for this project, plus
-the owner's global ones, against the current model and against the repository
-itself. Most findings were stale facts and files contradicting each other, not
-old prompting style. Applied the project-side fixes as one pull request, which
-the owner merged, and a small commit to the global files. Filed a plan draft
-for the brand-colour disagreement and added line-level detail to an existing
-draft for cleaning up dead tool references.
-
-Learned: The most useful check was comparing each claim in a rule file with the
-tree: counts, line numbers and secret lists had drifted, and one checklist item
-referred to a feature that had been switched off. Also, a file that git ignores
-cannot ride along in a pull request, so an edit to it stays local until someone
-decides to track it.
-
-Left off at: Merged. The fresh-session check that rule files load is still open.

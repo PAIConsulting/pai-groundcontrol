@@ -2,6 +2,24 @@
 
 Older entries rolled out of `projects/pai-aeronews.md`, newest first.
 
+### 2026-09-26 · Claude Code
+
+Did: Audited the Claude Code instruction files that load for this project, plus
+the owner's global ones, against the current model and against the repository
+itself. Most findings were stale facts and files contradicting each other, not
+old prompting style. Applied the project-side fixes as one pull request, which
+the owner merged, and a small commit to the global files. Filed a plan draft
+for the brand-colour disagreement and added line-level detail to an existing
+draft for cleaning up dead tool references.
+
+Learned: The most useful check was comparing each claim in a rule file with the
+tree: counts, line numbers and secret lists had drifted, and one checklist item
+referred to a feature that had been switched off. Also, a file that git ignores
+cannot ride along in a pull request, so an edit to it stays local until someone
+decides to track it.
+
+Left off at: Merged. The fresh-session check that rule files load is still open.
+
 ### 2026-09-25 · Claude Code
 
 Did: Reviewed a restructure of the project's Claude Code instructions from one

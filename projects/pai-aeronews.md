@@ -20,9 +20,9 @@ stream than one card per article.
 
 - Paper-metadata enrichment, second step: backfill that metadata for the papers
   already in the store, and keep re-checking reference lists that were still
-  empty at first fetch. The script is built and was run in full against a local
-  copy (not published). Two pull requests wait on the owner's merge, the script
-  first, then the workflow step that runs it.
+  empty at first fetch. Script and workflow step both merged 2026-10-07; the
+  backfill runs inside the daily intake job and should cover the store in about
+  three daily runs.
 
 ### Next
 
@@ -194,7 +194,8 @@ jobs. If a re-check reset it, the 30-day window would never close. Keeping the
 first-fetch time fixed and stamping re-checks separately satisfied both halves.
 Each guard was again broken on purpose to confirm a test caught it.
 
-Left off at: Both pull requests await the owner's merge, the script first.
+Left off at: Both pull requests merged, in order. Waiting on the first daily
+intake runs to fill the metadata file.
 
 ### 2026-10-07 · Claude Code (paper metadata, step one)
 
@@ -211,7 +212,7 @@ assumed every field was useful at intake, but one was always zero and another
 was often empty, and the size check found a limit the plan had not anticipated.
 The size guard was also made to fail on purpose before it was trusted.
 
-Left off at: Both pull requests await the owner's merge, workflow change first.
+Left off at: Both pull requests merged.
 
 ### 2026-10-03 · Claude Code (Anthropic-only cleanup)
 
